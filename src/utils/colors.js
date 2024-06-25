@@ -1,0 +1,15 @@
+export default {
+  tabBarBgColor: '#EEE',
+  textPrimaryColor: '#4D473E',
+  white: '#fff',
+  BackgroundColor: '#FFF8F7',
+  PrimaryColor: '#881619',
+  SucessColor: '#005E33',
+  HeadlineColor: '#242424',
+  SubheadColor: '#4D473E',
+  WarningColor: '#B3261E',
+  SurfaceColor: '#EEEEEE',
+  lightOutline: '#79747E',
+  bgOverlay: 'rgba(0, 0, 0, 0.40)',
+  black: '#000',
+};
