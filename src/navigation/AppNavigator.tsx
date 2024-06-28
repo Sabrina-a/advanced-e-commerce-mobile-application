@@ -8,12 +8,7 @@ import SignUp from '../screens/Auth/SignUp/SignUp';
 import Home from '../screens/Home/Home';
 import ProductDetails from '../screens/Products/ProductDetails';
 import TabNavigation from './TabNavigation/TabStacks';
-// import { RootState } from '../store';
-// import ProductList from '../screens/ProductList';
-// import ProductDetails from '../screens/ProductDetails';
-// import ShoppingCart from '../screens/ShoppingCart';
 
-// import Signup from '../screens/Signup';
 // import Payment from '../screens/Payment';
 
 const Stack = createStackNavigator();
@@ -23,7 +18,6 @@ const MainNavigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
-        {/* //token ? */}
         {token ? (
           <>
             <Stack.Screen

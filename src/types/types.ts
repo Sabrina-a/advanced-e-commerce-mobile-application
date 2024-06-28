@@ -6,15 +6,31 @@ export interface User {
     phone_number: string;
     first_name: string;
     last_name: string;
-    date_of_birth: string; // Change to Date if parsing is required
-    account_type: 'Admin' | 'Basic' | 'Premium'; // Adjust as per your data
+    date_of_birth: string;  
+    account_type: 'Admin' | 'Basic' | 'Premium'; 
   }
-  export interface Product {
-    id: number;
-    productName: string;
-    image: string;
-    price: string;
-    description: string;
-    review: string;
-    rate: number;
+//   export interface Product {
+//     id: number;
+//     productName: string;
+//     image: string;
+//     price: string;
+//     description: string;
+//     review: string;
+//     rate: number;
+// }
+export interface Product {
+  id: number;
+  productName: string;
+  image: string;
+  price: string;
+  description: string;
+  review: string;
+  rate: number;
+  quantity: number;
+}
+
+export interface PaymentData {
+  cardNumber: string;
+  expiryDate: string;
+  cvv: string;
 }

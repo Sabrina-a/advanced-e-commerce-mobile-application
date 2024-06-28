@@ -17,9 +17,8 @@ const HomeStack = props => {
     <Stack.Navigator initialRouteName={'Home'} screenOptions={{lazy: true}}>
       <Stack.Screen name="ProductList" component={ProductList} />
       <Stack.Screen name="ProductDetails" component={ProductDetails} />
-      {/* <Stack.Screen name="ShoppingCart" component={ShoppingCart} />
-      <Stack.Screen name="Payment" component={Payment} /> */}
-      <Stack.Screen name="Home" component={Home} />
+  
+     
     </Stack.Navigator>
   );
 };

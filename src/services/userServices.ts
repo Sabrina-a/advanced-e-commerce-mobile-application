@@ -10,8 +10,9 @@ export const login = async (username: string, password: string) => {
     const response = await axios.get(`${API_URL}/users`, {
       params: {username, password},
     });
-
+console.log(response,'bef')
     if (response.data.length > 0) {
+      console.log(response.data)
       const user = response.data[0];
       const token = generateMockToken(user);
       // Store the token securely

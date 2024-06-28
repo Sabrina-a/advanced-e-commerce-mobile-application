@@ -1,16 +1,12 @@
 import {
   View,
   TouchableOpacity,
-  SafeAreaView,
-  ImageBackground,
-  StatusBar,
-  Image,
-  StyleSheet,
+ 
 } from 'react-native';
 
-import {hp, wp} from '../../utils/dimensions.js';
+ 
 import colors from '../../utils/colors.js';
-import {moderateScale} from '../../utils/ResponsiveDimentions.js';
+
 import Text from '../../common/Text';
 // import FontsSizes from '../../utils/FontsSizes.js';
 
@@ -101,6 +97,7 @@ export default function AppTabBar({state, descriptors, navigation}) {
 
             return (
               <TabButton
+              key={index}
                 onPress={onPress}
                 isFocused={isFocused}
                 options={options}

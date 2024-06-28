@@ -1,6 +1,6 @@
 // src/screens/Signup.tsx
 import React from 'react';
-import {View, TextInput, StyleSheet, Text} from 'react-native';
+import {View, TextInput, StyleSheet} from 'react-native';
 import {Formik, FormikHelpers} from 'formik';
 import * as yup from 'yup';
 import {useDispatch} from 'react-redux';
@@ -12,6 +12,13 @@ import {
 } from '../../../redux/reducerSlices/authSlice';
 import Button from '../../../common/Button';
 import {signup} from '../../../services/userServices';
+import {
+  showToastErrorMSG,
+  showToastSuccessMessage,
+} from '../../../utils/utilsFunctions';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {NavigationType, RootStackParamList} from '../../../types/NavigationTypes';
+import Text from '../../../common/Text';
 
 const signupSchema = yup.object().shape({
   username: yup.string().required('Username is required'),
@@ -25,8 +32,9 @@ interface SignupFormValues {
   email: string;
 }
 
+
 const Signup = () => {
-  const navigation = useNavigation();
+  const navigation =useNavigation<NavigationType>()
   const dispatch = useDispatch();
 
   const onSubmit = async (
@@ -40,16 +48,13 @@ const Signup = () => {
       const user = await signup(values.username, values.password, values.email);
 
       if (user) {
-        // Save user data and token in Redux
-        // dispatch(loginSuccess({ user, token }));
-        console.log({user}, 'signup');
-        // Optionally, navigate to another screen
-        // navigation.navigate('Login');
+        navigation.navigate('Login');
+        showToastSuccessMessage('Signup completed ');
       } else {
+        showToastErrorMSG('Signup failed');
         dispatch(loginFailure('Signup failed'));
       }
     } catch (error) {
-      dispatch(loginFailure('Error occurred during signup'));
       // Set form error using formik's setFieldError
       setFieldError('general', 'Error occurred during signup');
     } finally {
@@ -110,9 +115,23 @@ const Signup = () => {
           </View>
         )}
       </Formik>
-      {/* <Text onPress={() => navigation.navigate('Login')}>
-        Already have an account? Log in
-      </Text> */}
+
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Text>Already have an account? </Text>
+        <Text
+          onPress={() => navigation.navigate('Login')}
+          bold
+          size={16}
+          primary>
+          Login
+        </Text>
+      </View>
     </View>
   );
 };

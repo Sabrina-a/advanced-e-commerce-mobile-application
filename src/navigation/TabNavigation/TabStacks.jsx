@@ -5,11 +5,14 @@ import HomeStack from '../NavStack/HomeStack';
 import {Image, View} from 'react-native';
 import home from '../../assets/images/Home.png';
 import profile from '../../assets/images/profile.png';
+import cart from '../../assets/images/Cart.png';
 
 import {moderateScale} from '../../utils/ResponsiveDimentions';
 import colors from '../../utils/colors';
 import ProfileStack from '../NavStack/ProfileStack';
 import CustomHeader from './CustomHeader';
+import ShoppingCart from '../../screens/ShoppingCart/ShoppingCart';
+import Payment from '../../screens/Payment/Payment';
 
 export const screenOptions = {
   header: props => (
@@ -44,6 +47,16 @@ export default function TabNavigation() {
           headerShown: false,
         }}
       />
+      <Tab.Screen
+        name="Cart"
+        component={ShoppingCart}
+        options={{tabBarIcon: cartIcon, title: 'Cart', headerShown: true}}
+      />
+      <Tab.Screen
+        name="Payment"
+        component={Payment}
+        options={{tabBarIcon: paymentIcon, title: 'Payment', headerShown: true}}
+      />
     </Tab.Navigator>
   );
 }
@@ -69,6 +82,38 @@ const profileIcon = ({isFocused}) => {
       <Image
         resizeMode="contain"
         source={profile}
+        style={{
+          tintColor: isFocused ? colors.PrimaryColor : colors.textPrimaryColor,
+          width: moderateScale(10),
+          height: moderateScale(10),
+        }}
+      />
+    </View>
+  );
+};
+
+const cartIcon = ({isFocused}) => {
+  return (
+    <View>
+      <Image
+        resizeMode="contain"
+        source={cart}
+        style={{
+          tintColor: isFocused ? colors.PrimaryColor : colors.textPrimaryColor,
+          width: moderateScale(10),
+          height: moderateScale(10),
+        }}
+      />
+    </View>
+  );
+};
+
+const paymentIcon = ({isFocused}) => {
+  return (
+    <View>
+      <Image
+        resizeMode="contain"
+        source={cart}
         style={{
           tintColor: isFocused ? colors.PrimaryColor : colors.textPrimaryColor,
           width: moderateScale(10),

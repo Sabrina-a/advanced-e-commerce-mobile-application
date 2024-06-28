@@ -4,10 +4,10 @@ import Image from '../common/Image';
 import View from '../common/View';
 import Text from '../common/Text';
 import {moderateScale} from '../utils/ResponsiveDimentions';
-import star from "../assets/images/star.png";
+import star from '../assets/images/star.png';
 type Props = {
   rate: number;
-  reviewNumber: number;
+  reviewNumber?: number;
   textColor?: string;
   imgColor?: string;
   disappear?: boolean;
@@ -20,7 +20,6 @@ const Review = ({
   imgColor,
   disappear,
 }: Props) => {
-
   return (
     <View style={styles.container}>
       <Image
@@ -29,9 +28,7 @@ const Review = ({
         source={star}
         tintColor={imgColor}
       />
-      <Text color={textColor}>
-        {rate || 0} {!disappear && `(${reviewNumber || 0} Review`}
-      </Text>
+      <Text color={textColor}>{rate || 0}</Text>
     </View>
   );
 };

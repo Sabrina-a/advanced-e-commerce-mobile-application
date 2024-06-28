@@ -1,6 +1,6 @@
 // src/screens/Login.tsx
 import React from 'react';
-import {View, TextInput, StyleSheet, Text, Alert} from 'react-native';
+import {View, TextInput, StyleSheet} from 'react-native';
 import {Formik, FormikHelpers} from 'formik';
 import * as yup from 'yup';
 import {useDispatch} from 'react-redux';
@@ -12,8 +12,11 @@ import {useNavigation} from '@react-navigation/native';
 import {NavigationType} from '../../../types/NavigationTypes';
 import Button from '../../../common/Button';
 import {login} from '../../../services/userServices';
-import {generateMockToken, showToastErrorMSG} from '../../../utils/utilsFunctions';
-import Toast from 'react-native-root-toast';
+import {
+  showToastErrorMSG,
+  showToastSuccessMessage,
+} from '../../../utils/utilsFunctions';
+import Text from '../../../common/Text';
 
 const loginSchema = yup.object().shape({
   username: yup.string().required('Username is required'),
@@ -28,10 +31,6 @@ const Login = () => {
   const navigation = useNavigation<NavigationType>();
   const dispatch = useDispatch();
 
-  const showToast = () => {
-    
-  };
-
   const onSubmit = async (
     values: LoginFormValues,
     formikHelpers: FormikHelpers<LoginFormValues>,
@@ -39,23 +38,21 @@ const Login = () => {
     const {setSubmitting, setFieldError} = formikHelpers;
     try {
       const {user, token} = await login(values.username, values.password);
-
+      console.log({user});
       if (user) {
-        // Save user data and token in Redux
         dispatch(loginSuccess({user, token}));
-        navigation.navigate('Home');
+        showToastSuccessMessage('Welcome back!');
+      //  navigation.navigate('Home');
       } else {
-         showToastErrorMSG("Invalid credentials")
         dispatch(loginFailure('Invalid username or password'));
+        showToastErrorMSG('Invalid username or password');
       }
     } catch (error) {
       dispatch(loginFailure('Error occurred during login'));
       setFieldError('general', 'Error occurred during login');
-    } finally {
-      setSubmitting(false);
-    }
+    } 
   };
-  showToast()
+
   return (
     <View style={styles.container}>
       <Formik
@@ -92,13 +89,27 @@ const Login = () => {
             {touched.password && errors.password && (
               <Text style={styles.error}>{errors?.password}</Text>
             )}
-            <Button title="Login" primary onPress={()=>handleSubmit()} />
+            <Button title="Login" primary onPress={() => handleSubmit()} />
           </View>
         )}
       </Formik>
-      <Text onPress={() => navigation.navigate('Signup')}>
-        Don't have an account? Sign up
-      </Text>
+
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Text>don't have an account? </Text>
+        <Text
+          onPress={() => navigation.navigate('Signup')}
+          bold
+          size={16}
+          primary>
+          SignUp
+        </Text>
+      </View>
     </View>
   );
 };

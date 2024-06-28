@@ -13,7 +13,7 @@ import {moderateScale} from '../utils/ResponsiveDimentions';
 import View from './View';
 import Text from './Text';
 import FontsSizes from '../utils/FontsSizes';
-import {hp} from '../utils/dimensions';
+import {hp, wp} from '../utils/dimensions';
 
 const Button = (
   props: TouchableOpacityProps &
@@ -41,9 +41,8 @@ const Button = (
     txtStyle,
     fontSize,
     loading,
-    disabled
+    disabled,
   } = props;
-  
 
   return (
     <View
@@ -63,8 +62,11 @@ const Button = (
           styles?.button,
           primary && {backgroundColor: colors?.PrimaryColor},
           !!bg_color && {backgroundColor: bg_color, borderColor: bg_color},
+          {height: hp(5)},
           style,
-          disabled &&{backgroundColor:"rgba(136, 22, 25, .5)"}
+
+          disabled && {backgroundColor: 'rgba(136, 22, 25, .5)'},
+         
         ]}>
         {!loading ? (
           <>

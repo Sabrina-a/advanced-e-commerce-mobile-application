@@ -6,45 +6,43 @@ import {hp, wp} from '../utils/dimensions';
 
 import SavedButton from '../common/SaveButton';
 import Text from '../common/Text';
- 
- 
+
 import Review from './Review';
- 
+
 import TouchableOpacity from '../common/TouchableOpacity';
 import {useNavigation} from '@react-navigation/native';
 import Image from '../common/Image';
 import colors from '../utils/colors';
- 
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
-import { Product } from '../types/types';
+
+import {useDispatch} from 'react-redux';
+import {RootState} from '../redux/store';
+import {  Product} from '../types/types';
+import Button from '../common/Button';
+import {addToCart} from '../redux/reducerSlices/cartSlice';
+import { NavigationType, RootStackParamList } from '../types/NavigationTypes';
+import { StackNavigationProp } from '@react-navigation/stack';
 interface ProductCardProps {
-    product: Product;
-  }
+  product: Product;
+}
 
-const ProductCard: React.FC<ProductCardProps> = ({
- product
-}) => {
-
-    
- 
+const ProductCard: React.FC<ProductCardProps> = ({product}) => {
   const [showImageModal, setShowImagModal] = useState(false);
-  const navigation = useNavigation();
- 
-  
+  const navigation = useNavigation<NavigationType>()
+  const dispatch = useDispatch();
 
+  const handleAddToCart = () => {
+    dispatch(addToCart(product));
+    
+   
+  };
   return (
     <>
       <TouchableOpacity
-        // onPress={() =>
-        // //   navigation.navigate('ProductDetails', {productId: productId})
-        // // navigation.navigate('ProductDetails')
-
-        // }
-        >
+      onPress={() =>
+        navigation.navigate('ProductDetails', {product})
+      }
+      >
         <View style={[styles.container]}>
-   
-
           <View
             style={{
               width: wp(90),
@@ -54,7 +52,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
               justifyContent: 'center',
               borderRadius: moderateScale(5),
               position: 'relative',
-           
             }}>
             <View
               style={{
@@ -75,14 +72,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
               resizeMode="cover"
               style={{
                 flex: 1,
-                // overflow: 'hidden',     
+                // overflow: 'hidden',
                 borderTopLeftRadius: moderateScale(5),
                 borderTopRightRadius: moderateScale(5),
                 backgroundColor: colors?.tabBarBgColor,
               }}
-              source={
-                {uri: product?.image?.toString()}
-              }
+              source={{uri: product?.image?.toString()}}
             />
             <View
               style={{
@@ -91,10 +86,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 left: 1,
                 top: 4,
                 zIndex: 4,
-              }}>
-          
-          
-            </View>
+              }}></View>
             <View
               style={{
                 display: 'flex',
@@ -132,16 +124,21 @@ const ProductCard: React.FC<ProductCardProps> = ({
             style={{
               display: 'flex',
               flexDirection: 'row',
-             paddingHorizontal: moderateScale(3),
-             height:hp(3),
-             margin:0
+              paddingHorizontal: moderateScale(3),
+              height: hp(3),
+              margin: 0,
             }}>
             <Text bold primary>
-              {product?.price} 
+              {product?.price}
             </Text>
           </View>
+          <Button
+            style={{height: hp(5)}}
+            primary
+            title="Add To Cart"
+            onPress={handleAddToCart}
+          />
         </View>
-       
       </TouchableOpacity>
     </>
   );
@@ -153,11 +150,11 @@ const styles = StyleSheet.create({
     borderWidth: wp(0.1),
     marginHorizontal: moderateScale(3),
     borderRadius: moderateScale(6),
-  
+
     marginRight: moderateScale(5),
     marginBottom: moderateScale(4),
 
-    paddingBottom:moderateScale(3)
+    paddingBottom: moderateScale(3),
   },
 
   headerBG: {
