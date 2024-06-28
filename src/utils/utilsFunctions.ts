@@ -1,8 +1,8 @@
-
 import Toast from 'react-native-root-toast';
 import {hp} from './dimensions';
 import colors from './colors';
 import ImagePicker from 'react-native-image-crop-picker';
+// import { ACCESS_TOKEN_SECRET } from '@env';
 
 export function console_log(...args: any[]): void {
   console.log('================================');
@@ -11,14 +11,14 @@ export function console_log(...args: any[]): void {
 
 export const showToastErrorMSG = (msg: string) => {
   msg &&
-    Toast.show(msg, {
-      position: hp(10),
-      duration: 3000,
-      shadow: true,
-      animation: true,
-      hideOnPress: true,
-      backgroundColor: colors?.WarningColor,
-    });
+  Toast.show(msg, {
+    position: Toast.positions.TOP,
+    duration: Toast.durations.LONG,
+    shadow: true,
+    animation: true,
+    hideOnPress: true,
+    backgroundColor: colors?.WarningColor,
+  });
 };
 
 //////
@@ -33,8 +33,6 @@ export const showToastSuccessMessage = (msg: string) => {
     backgroundColor: colors?.SucessColor,
   });
 };
-
-
 
 // ===pick Image ====
 export const pickImage = async (props: {multiple?: boolean}) => {
@@ -71,4 +69,18 @@ export const pickImage = async (props: {multiple?: boolean}) => {
   }
 };
 
+//
 
+const ACCESS_TOKEN_SECRET = 'your_secret_here';
+
+export const generateMockToken = (
+  payloadObject: any,
+  // expiryTimeString?: string,
+) => {
+  // Example payload for the token (you can customize this)
+
+  payloadObject.exp = Math.floor(Date.now() / 1000) + 60 * 60;
+  // Simulate JWT creation (not actual signing)
+  const token = `${btoa(JSON.stringify(payloadObject))}.mocksignature`; // Example mock token format
+  return token;
+};
